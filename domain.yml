@@ -1,0 +1,49 @@
+# 
+version: "3.1"
+
+intents:
+  - greet
+  - emergency_type
+  - provide_location
+  - goodbye
+
+entities:
+  - location
+
+slots:
+  incident_type:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        intent: emergency_type
+
+  location:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: location
+
+  risk_level:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+responses:
+  utter_greet:
+    - text: "Hello, I am Mansi. What emergency are you facing?"
+
+  utter_goodbye:
+    - text: "Stay safe. I’m here if you need help again."
+
+  utter_fallback:
+    - text: "I didn't understand. Please tell me if it's fire, flood, earthquake, or medical."
+
+actions:
+  - action_handle_emergency
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

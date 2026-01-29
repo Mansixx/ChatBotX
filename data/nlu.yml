@@ -1,0 +1,35 @@
+# 
+version: "3.1"
+
+nlu:
+
+- intent: greet
+  examples: |
+    - hi
+    - hello
+    - hey
+    - good morning
+
+- intent: emergency_type
+  examples: |
+    - fire
+    - there is fire
+    - building burning
+    - flood
+    - earthquake
+    - someone collapsed
+    - medical emergency
+    - heart attack
+
+- intent: provide_location
+  examples: |
+    - I am in [Berlin](location)
+    - [Mumbai](location)
+    - near [Andheri](location)
+    - [Delhi](location)
+
+- intent: goodbye
+  examples: |
+    - bye
+    - thanks
+    - goodbye

@@ -1,0 +1,15 @@
+# 
+version: "3.1"
+
+stories:
+
+- story: emergency flow
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+  - intent: emergency_type
+  - action: action_handle_emergency
+
+  - intent: provide_location
+  - action: action_handle_emergency
