@@ -12,4 +12,4 @@ stories:
   - action: action_handle_emergency
 
   - intent: provide_location
-  - action: action_handle_emergency
+    - action: action_handle_emergency
