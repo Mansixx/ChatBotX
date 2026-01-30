@@ -38,7 +38,7 @@ class ActionHandleEmergency(Action):
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
 
-        incident = tracker.get_slot("incident_type")
+        incident = tracker.latest_message.get("text")
         location = tracker.get_slot("location")
 
         if not incident:
