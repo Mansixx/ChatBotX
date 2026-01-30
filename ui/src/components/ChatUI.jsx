@@ -8,11 +8,16 @@ export default function ChatUI() {
   const [isOnline, setIsOnline] = useState(false)
   const bottomRef = useRef(null)
 
+
+const RASA_URL = window.location.origin.replace(":3000", ":5005")
+
+  // const RASA_URL = "http://13.48.85.237:5005"
+
   // Test Rasa connection on mount
   useEffect(() => {
     const testConnection = async () => {
       try {
-        const res = await fetch("http://localhost:5005/", { method: "GET" })
+       const res = await fetch(`${RASA_URL}/status`)
         setIsOnline(res.ok)
       } catch {
         setIsOnline(false)
@@ -52,7 +57,7 @@ export default function ChatUI() {
 
     try {
       // Fixed: Use localhost instead of rasa for browser access
-      const res = await fetch("http://localhost:5005/webhooks/rest/webhook", {
+      const res = await fetch(`${RASA_URL}/webhooks/rest/webhook`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ sender: "user", message: input }),

@@ -7,7 +7,7 @@ COPY . .
 
 RUN pip install --no-cache-dir rasa-sdk
 
+USER 1001
 
 CMD ["run", "--enable-api", "--cors", "*", "--port", "5005"]
 
-#CMD ["run", "--enable-api", "--cors", "*", "--debug", "--endpoints", "endpoints.yml"]
