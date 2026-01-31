@@ -1,25 +1,64 @@
+# # 
+
+# version: '3.8'
+# services:
+#   rasa:
+#     platform: linux/amd64
+#     build:
+#       context: .
+#       dockerfile: Dockerfile.rasa
+#     ports:
+#       - "5005:5005"
+#     depends_on:
+#       - actions
+#     volumes:
+#       - ./models:/app/models
+#       - ./endpoints.yml:/app/endpoints.yml
+#     # REMOVE command: line completely - use Dockerfile CMD
+
+#   actions:
+#     platform: linux/amd64
+#     build:
+#       context: .
+#       dockerfile: Dockerfile.actions
+#     ports:
+#       - "5055:5055"
+#     # REMOVE command: line completely - use Dockerfile CMD
+
+#   ui:
+#     build:
+#       context: ./ui
+#     ports:
+#       - "3000:3000"
+#     depends_on:
+#       - rasa
+
+
 services:
+  actions:
+    image: rasa/rasa-sdk:latest
+    ports:
+      - "5055:5055"
+    volumes:
+      - ./actions:/app/actions
+    command: rasa run actions --debug
+
   rasa:
-    build:
-      context: .
-      dockerfile: Dockerfile.rasa
+    image: rasa/rasa:latest
     ports:
       - "5005:5005"
     depends_on:
       - actions
     volumes:
-      - ./models:/app/models
-
-  actions:
-    build:
-      context: .
-      dockerfile: Dockerfile.actions
-    ports:
-      - "5055:5055"
+      - .:/app
+    command: run --enable-api --cors "*" --debug -m models
+    environment:
+      - PYTHONWARNINGS="ignore::DeprecationWarning"
 
   ui:
-    build:
-      context: ./ui
+    build: ./ui
     ports:
-      - "3000:4173"
-    command: npm run preview -- --host
+      - "3000:3000"
+    depends_on:
+      - rasa
+

@@ -1,13 +1,27 @@
+# FROM rasa/rasa:3.6.20
+
+# WORKDIR /app
+
+# USER root
+# COPY . .
+
+# RUN pip install --no-cache-dir rasa-sdk
+
+# USER 1001
+
+# CMD ["rasa", "run", "actions", "--debug"]
+
+# #CMD ["run", "--enable-api", "--cors", "*", "--port", "5005", "--endpoints", "endpoints.yml"]
+
+# FROM rasa/rasa:3.6.20
+# WORKDIR /app
+# COPY . .
+# #CMD ["rasa", "run", "--enable-api", "--cors", "*", "--debug", "-m", "models"]
+# CMD ["run", "--enable-api", "--cors", "*", "--debug", "-m", "models"]
+
+
 FROM rasa/rasa:3.6.20
-
 WORKDIR /app
-
-USER root
 COPY . .
-
-RUN pip install --no-cache-dir rasa-sdk
-
-USER 1001
-
-CMD ["run", "--enable-api", "--cors", "*", "--port", "5005", "--endpoints", "endpoints.yml"]
-
+# THIS EXACT LINE:
+CMD ["run","--enable-api","--cors","*","--debug","-m","models"]

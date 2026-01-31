@@ -1,0 +1,306 @@
+ Image chatbot-rasa Building 
+ Image chatbot-actions Building 
+ Image chatbot-ui Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.46kB done
+#1 DONE 0.0s
+
+#2 [rasa internal] load build definition from Dockerfile.rasa
+#2 transferring dockerfile: 247B done
+#2 DONE 0.0s
+
+#3 [ui internal] load build definition from Dockerfile
+#3 transferring dockerfile: 185B done
+#3 DONE 0.0s
+
+#4 [actions internal] load build definition from Dockerfile.actions
+#4 transferring dockerfile: 464B done
+#4 DONE 0.0s
+
+#5 [rasa internal] load metadata for docker.io/rasa/rasa:3.6.20
+#5 ...
+
+#6 [ui internal] load metadata for docker.io/library/node:20-alpine
+#6 DONE 3.6s
+
+#7 [ui internal] load .dockerignore
+#7 transferring context: 2B done
+#7 DONE 0.0s
+
+#5 [rasa internal] load metadata for docker.io/rasa/rasa:3.6.20
+#5 DONE 3.7s
+
+#8 [actions internal] load metadata for docker.io/rasa/rasa-sdk:3.6.2
+#8 DONE 3.7s
+
+#9 [ui 1/6] FROM docker.io/library/node:20-alpine@sha256:09e2b3d9726018aecf269bd35325f46bf75046a643a66d28360ec71132750ec8
+#9 resolve docker.io/library/node:20-alpine@sha256:09e2b3d9726018aecf269bd35325f46bf75046a643a66d28360ec71132750ec8 0.0s done
+#9 DONE 0.0s
+
+#10 [actions internal] load .dockerignore
+#10 transferring context: 154B done
+#10 DONE 0.0s
+
+#11 [rasa internal] load build context
+#11 DONE 0.0s
+
+#12 [rasa 1/4] FROM docker.io/rasa/rasa:3.6.20@sha256:602ecf5b43b18630a323322404a73d3ead2d490c99696985e7b4461001898998
+#12 resolve docker.io/rasa/rasa:3.6.20@sha256:602ecf5b43b18630a323322404a73d3ead2d490c99696985e7b4461001898998
+#12 resolve docker.io/rasa/rasa:3.6.20@sha256:602ecf5b43b18630a323322404a73d3ead2d490c99696985e7b4461001898998 0.0s done
+#12 DONE 0.0s
+
+#13 [ui 2/6] WORKDIR /app
+#13 DONE 0.0s
+
+#14 [actions internal] load build context
+#14 transferring context: 5.79kB done
+#14 DONE 0.1s
+
+#15 [actions 1/5] FROM docker.io/rasa/rasa-sdk:3.6.2@sha256:9ebc0abc5b36d9420343a197bdfd9c478155ca86871dc08f8e823c76f484c948
+#15 resolve docker.io/rasa/rasa-sdk:3.6.2@sha256:9ebc0abc5b36d9420343a197bdfd9c478155ca86871dc08f8e823c76f484c948 0.0s done
+#15 DONE 0.1s
+
+#16 [actions 2/5] WORKDIR /app
+#16 DONE 0.1s
+
+#11 [rasa internal] load build context
+#11 ...
+
+#17 [actions 3/5] COPY actions/requirements-actions.txt /app/requirements-actions.txt
+#17 DONE 0.1s
+
+#11 [rasa internal] load build context
+#11 ...
+
+#18 [ui internal] load build context
+#18 transferring context: 118.79MB 2.9s done
+#18 DONE 3.0s
+
+#11 [rasa internal] load build context
+#11 ...
+
+#19 [ui 3/6] COPY package*.json ./
+#19 DONE 0.4s
+
+#11 [rasa internal] load build context
+#11 transferring context: 504.18MB 5.8s done
+#11 DONE 5.8s
+
+#20 [rasa 2/4] WORKDIR /app
+#20 CACHED
+
+#21 [rasa 3/4] COPY . .
+#21 DONE 1.3s
+
+#22 [rasa 4/4] RUN pip install --no-cache-dir rasa-sdk
+#22 1.282 Requirement already satisfied: rasa-sdk in /opt/venv/lib/python3.10/site-packages (3.6.2)
+#22 1.294 Requirement already satisfied: Sanic-Cors<3.0.0,>=2.0.0 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk) (2.0.1)
+#22 1.295 Requirement already satisfied: ruamel.yaml<0.18.0,>=0.16.5 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk) (0.17.21)
+#22 1.298 Requirement already satisfied: sanic<22.0.0,>=21.12.0 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk) (21.12.2)
+#22 1.299 Requirement already satisfied: typing-extensions<5.0.0,>=4.1.1 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk) (4.7.1)
+#22 1.301 Requirement already satisfied: setuptools>=65.5.1 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk) (68.0.0)
+#22 1.301 Requirement already satisfied: websockets<11.0,>=10.0 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk) (10.4)
+#22 1.305 Requirement already satisfied: coloredlogs<16,>=10 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk) (15.0.1)
+#22 1.307 Requirement already satisfied: prompt-toolkit<3.0.29,>=3.0 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk) (3.0.28)
+#22 1.309 Requirement already satisfied: wheel>=0.38.1 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk) (0.40.0)
+#22 1.310 Requirement already satisfied: pluggy<2.0.0,>=1.0.0 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk) (1.2.0)
+#22 1.314 Requirement already satisfied: humanfriendly>=9.1 in /opt/venv/lib/python3.10/site-packages (from coloredlogs<16,>=10->rasa-sdk) (10.0)
+#22 1.320 Requirement already satisfied: wcwidth in /opt/venv/lib/python3.10/site-packages (from prompt-toolkit<3.0.29,>=3.0->rasa-sdk) (0.2.6)
+#22 1.326 Requirement already satisfied: ruamel.yaml.clib>=0.2.6 in /opt/venv/lib/python3.10/site-packages (from ruamel.yaml<0.18.0,>=0.16.5->rasa-sdk) (0.2.7)
+#22 1.379 Requirement already satisfied: httptools>=0.0.10 in /opt/venv/lib/python3.10/site-packages (from sanic<22.0.0,>=21.12.0->rasa-sdk) (0.5.0)
+#22 1.380 Requirement already satisfied: sanic-routing~=0.7 in /opt/venv/lib/python3.10/site-packages (from sanic<22.0.0,>=21.12.0->rasa-sdk) (0.7.2)
+#22 1.381 Requirement already satisfied: multidict<6.0,>=5.0 in /opt/venv/lib/python3.10/site-packages (from sanic<22.0.0,>=21.12.0->rasa-sdk) (5.2.0)
+#22 1.383 Requirement already satisfied: uvloop>=0.5.3 in /opt/venv/lib/python3.10/site-packages (from sanic<22.0.0,>=21.12.0->rasa-sdk) (0.17.0)
+#22 1.385 Requirement already satisfied: aiofiles>=0.6.0 in /opt/venv/lib/python3.10/site-packages (from sanic<22.0.0,>=21.12.0->rasa-sdk) (23.1.0)
+#22 1.387 Requirement already satisfied: ujson>=1.35 in /opt/venv/lib/python3.10/site-packages (from sanic<22.0.0,>=21.12.0->rasa-sdk) (5.8.0)
+#22 ...
+
+#23 [ui 4/6] RUN npm install
+#23 5.327 
+#23 5.327 added 225 packages, and audited 226 packages in 5s
+#23 5.327 
+#23 5.327 49 packages are looking for funding
+#23 5.327   run `npm fund` for details
+#23 5.328 
+#23 5.328 found 0 vulnerabilities
+#23 5.329 npm notice
+#23 5.329 npm notice New major version of npm available! 10.8.2 -> 11.8.0
+#23 5.329 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.8.0
+#23 5.329 npm notice To update run: npm install -g npm@11.8.0
+#23 5.329 npm notice
+#23 DONE 5.5s
+
+#24 [ui 5/6] COPY . .
+#24 ...
+
+#22 [rasa 4/4] RUN pip install --no-cache-dir rasa-sdk
+#22 2.763 
+#22 2.763 [notice] A new release of pip available: 22.3.1 -> 26.0
+#22 2.763 [notice] To update, run: pip install --upgrade pip
+#22 DONE 3.0s
+
+#24 [ui 5/6] COPY . .
+#24 DONE 1.3s
+
+#25 [ui 6/6] RUN npm run build
+#25 ...
+
+#26 [actions 4/5] RUN pip install --no-cache-dir -r /app/requirements-actions.txt
+#26 5.693 Requirement already satisfied: rasa-sdk==3.6.2 in /opt/venv/lib/python3.10/site-packages (from -r /app/requirements-actions.txt (line 1)) (3.6.2)
+#26 6.865 Collecting requests==2.31.0 (from -r /app/requirements-actions.txt (line 2))
+#26 6.865   Obtaining dependency information for requests==2.31.0 from https://files.pythonhosted.org/packages/70/8e/0e2d847013cb52cd35b38c009bb167a1a26b2ce6cd6965bf26b47bc0bf44/requests-2.31.0-py3-none-any.whl.metadata
+#26 10.14   Downloading requests-2.31.0-py3-none-any.whl.metadata (4.6 kB)
+#26 10.15 Requirement already satisfied: Sanic-Cors<3.0.0,>=2.0.0 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (2.0.1)
+#26 10.15 Requirement already satisfied: coloredlogs<16,>=10 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (15.0.1)
+#26 10.16 Requirement already satisfied: pluggy<2.0.0,>=1.0.0 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (1.0.0)
+#26 10.16 Requirement already satisfied: prompt-toolkit<3.0.29,>=3.0 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (3.0.28)
+#26 10.16 Requirement already satisfied: ruamel.yaml<0.18.0,>=0.16.5 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (0.17.21)
+#26 10.16 Requirement already satisfied: sanic<22.0.0,>=21.12.0 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (21.12.2)
+#26 10.16 Requirement already satisfied: setuptools>=65.5.1 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (67.0.0)
+#26 10.16 Requirement already satisfied: typing-extensions<5.0.0,>=4.1.1 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (4.5.0)
+#26 10.16 Requirement already satisfied: websockets<11.0,>=10.0 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (10.4)
+#26 10.16 Requirement already satisfied: wheel>=0.38.1 in /opt/venv/lib/python3.10/site-packages (from rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (0.41.2)
+#26 ...
+
+#25 [ui 6/6] RUN npm run build
+#25 0.256 
+#25 0.256 > bsbi@0.0.0 build
+#25 0.256 > vite build
+#25 0.256 
+#25 0.482 vite v7.3.1 building client environment for production...
+#25 0.725 transforming...
+#25 ...
+
+#26 [actions 4/5] RUN pip install --no-cache-dir -r /app/requirements-actions.txt
+#26 10.59 Collecting charset-normalizer<4,>=2 (from requests==2.31.0->-r /app/requirements-actions.txt (line 2))
+#26 10.59   Obtaining dependency information for charset-normalizer<4,>=2 from https://files.pythonhosted.org/packages/36/3b/60cbd1f8e93aa25d1c669c649b7a655b0b5fb4c571858910ea9332678558/charset_normalizer-3.4.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata
+#26 10.61   Downloading charset_normalizer-3.4.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (37 kB)
+#26 10.69 Collecting idna<4,>=2.5 (from requests==2.31.0->-r /app/requirements-actions.txt (line 2))
+#26 10.69   Obtaining dependency information for idna<4,>=2.5 from https://files.pythonhosted.org/packages/0e/61/66938bbb5fc52dbdf84594873d5b51fb1f7c7794e9c0f5bd885f30bc507b/idna-3.11-py3-none-any.whl.metadata
+#26 10.72   Downloading idna-3.11-py3-none-any.whl.metadata (8.4 kB)
+#26 10.82 Collecting urllib3<3,>=1.21.1 (from requests==2.31.0->-r /app/requirements-actions.txt (line 2))
+#26 10.82   Obtaining dependency information for urllib3<3,>=1.21.1 from https://files.pythonhosted.org/packages/39/08/aaaad47bc4e9dc8c725e68f9d04865dbcb2052843ff09c97b08904852d84/urllib3-2.6.3-py3-none-any.whl.metadata
+#26 10.84   Downloading urllib3-2.6.3-py3-none-any.whl.metadata (6.9 kB)
+#26 10.91 Collecting certifi>=2017.4.17 (from requests==2.31.0->-r /app/requirements-actions.txt (line 2))
+#26 10.91   Obtaining dependency information for certifi>=2017.4.17 from https://files.pythonhosted.org/packages/e6/ad/3cc14f097111b4de0040c83a525973216457bbeeb63739ef1ed275c1c021/certifi-2026.1.4-py3-none-any.whl.metadata
+#26 10.93   Downloading certifi-2026.1.4-py3-none-any.whl.metadata (2.5 kB)
+#26 10.94 Requirement already satisfied: humanfriendly>=9.1 in /opt/venv/lib/python3.10/site-packages (from coloredlogs<16,>=10->rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (10.0)
+#26 10.95 Requirement already satisfied: wcwidth in /opt/venv/lib/python3.10/site-packages (from prompt-toolkit<3.0.29,>=3.0->rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (0.2.6)
+#26 10.96 Requirement already satisfied: ruamel.yaml.clib>=0.2.6 in /opt/venv/lib/python3.10/site-packages (from ruamel.yaml<0.18.0,>=0.16.5->rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (0.2.7)
+#26 11.01 Requirement already satisfied: sanic-routing~=0.7 in /opt/venv/lib/python3.10/site-packages (from sanic<22.0.0,>=21.12.0->rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (0.7.2)
+#26 11.01 Requirement already satisfied: httptools>=0.0.10 in /opt/venv/lib/python3.10/site-packages (from sanic<22.0.0,>=21.12.0->rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (0.5.0)
+#26 11.01 Requirement already satisfied: aiofiles>=0.6.0 in /opt/venv/lib/python3.10/site-packages (from sanic<22.0.0,>=21.12.0->rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (22.1.0)
+#26 11.01 Requirement already satisfied: multidict<6.0,>=5.0 in /opt/venv/lib/python3.10/site-packages (from sanic<22.0.0,>=21.12.0->rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (5.2.0)
+#26 11.01 Requirement already satisfied: uvloop>=0.5.3 in /opt/venv/lib/python3.10/site-packages (from sanic<22.0.0,>=21.12.0->rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (0.17.0)
+#26 11.01 Requirement already satisfied: ujson>=1.35 in /opt/venv/lib/python3.10/site-packages (from sanic<22.0.0,>=21.12.0->rasa-sdk==3.6.2->-r /app/requirements-actions.txt (line 1)) (5.7.0)
+#26 11.15 Downloading requests-2.31.0-py3-none-any.whl (62 kB)
+#26 11.17    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.6/62.6 kB 3.1 MB/s eta 0:00:00
+#26 11.19 Downloading certifi-2026.1.4-py3-none-any.whl (152 kB)
+#26 11.22    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 152.9/152.9 kB 6.8 MB/s eta 0:00:00
+#26 11.24 Downloading charset_normalizer-3.4.4-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (153 kB)
+#26 11.25    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 153.6/153.6 kB 33.3 MB/s eta 0:00:00
+#26 11.28 Downloading idna-3.11-py3-none-any.whl (71 kB)
+#26 11.28    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 71.0/71.0 kB 205.5 MB/s eta 0:00:00
+#26 11.30 Downloading urllib3-2.6.3-py3-none-any.whl (131 kB)
+#26 11.31    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 131.6/131.6 kB 41.7 MB/s eta 0:00:00
+#26 11.35 Installing collected packages: urllib3, idna, charset-normalizer, certifi, requests
+#26 11.61 Successfully installed certifi-2026.1.4 charset-normalizer-3.4.4 idna-3.11 requests-2.31.0 urllib3-2.6.3
+#26 11.84 
+#26 11.84 [notice] A new release of pip is available: 23.2.1 -> 26.0
+#26 11.84 [notice] To update, run: pip install --upgrade pip
+#26 DONE 12.0s
+
+#27 [actions 5/5] COPY actions /app/actions
+#27 DONE 0.0s
+
+#28 [actions] exporting to image
+#28 exporting layers
+#28 exporting layers 0.2s done
+#28 exporting manifest sha256:6721ed0368cecbd12f64f87402b6bb69201531971301d21401a8928c09809999 done
+#28 exporting config sha256:d4721aa79e238520cb303e767613065e571faf0ddc5aed6d15f4c27d50251208 done
+#28 exporting attestation manifest sha256:ca554615c02d5f73aa089f317da05208662f007dbbd116b8dc9cafd658c96ff8 0.0s done
+#28 exporting manifest list sha256:53aaa0b8619f33616165a54c770e94197ead13861bbb16354393ac596c77bd16 done
+#28 naming to docker.io/library/chatbot-actions:latest done
+#28 DONE 0.2s
+
+#25 [ui 6/6] RUN npm run build
+#25 2.388 ✓ 421 modules transformed.
+#25 ...
+
+#29 [actions] resolving provenance for metadata file
+#29 DONE 0.0s
+
+#25 [ui 6/6] RUN npm run build
+#25 2.579 rendering chunks...
+#25 2.584 computing gzip size...
+#25 2.608 dist/index.html                   0.45 kB │ gzip:   0.29 kB
+#25 2.609 dist/assets/index-rdrfbudg.css   14.69 kB │ gzip:   3.54 kB
+#25 2.609 dist/assets/index-DPBlzyqW.js   319.37 kB │ gzip: 102.40 kB
+#25 2.616 ✓ built in 2.11s
+#25 DONE 2.7s
+
+#30 [rasa] exporting to image
+#30 ...
+
+#31 [ui] exporting to image
+#31 exporting layers 3.0s done
+#31 exporting manifest sha256:eab2a8ff81a36947cda6685bb80338de16599f69d9f60b31eb4ce8249c21b511 done
+#31 exporting config sha256:87b2e35a97f9d14519241e2cd18fa410e9ab93a677182e6bcf6168903e3f40d5 done
+#31 exporting attestation manifest sha256:ef18d9037bc1f48494db5c5c29da9f412823001654c077f08a5b0190f842a5d8 done
+#31 exporting manifest list sha256:e1402e1f10e465445766dacccd79d36a6c2ba37261ca61359424c4084543fc59 done
+#31 naming to docker.io/library/chatbot-ui:latest done
+#31 unpacking to docker.io/library/chatbot-ui:latest
+#31 unpacking to docker.io/library/chatbot-ui:latest 1.8s done
+#31 DONE 4.9s
+
+#32 [ui] resolving provenance for metadata file
+#32 DONE 0.0s
+
+#30 [rasa] exporting to image
+#30 exporting layers 12.8s done
+#30 exporting manifest sha256:f8a31ec63ea78e2801c917082748d4f437f39d1cee068f1c42025ab1ac33527a
+#30 exporting manifest sha256:f8a31ec63ea78e2801c917082748d4f437f39d1cee068f1c42025ab1ac33527a done
+#30 exporting config sha256:6097d02fc8f127d27fa306c0c62b816de3ec64f83cc884352038c0aadf61f565 done
+#30 exporting attestation manifest sha256:52c3987e3e7c817ac509304e3bf75ddd20a8061be75bbd83f0e17bf6b3e3e24d done
+#30 exporting manifest list sha256:b0a3d405801bd6199816fb80155db7db5ee5d8461c73f0d413553be7efa51fce done
+#30 naming to docker.io/library/chatbot-rasa:latest done
+#30 DONE 12.9s
+
+#33 [rasa] resolving provenance for metadata file
+#33 DONE 0.0s
+ Image chatbot-ui Built 
+ Image chatbot-actions Built 
+ Image chatbot-rasa Built 
+ Network chatbot_default Creating 
+ Network chatbot_default Created 
+ Container chatbot-ui-1 Creating 
+ Container chatbot-actions-1 Creating 
+ Container chatbot-ui-1 Created 
+ Container chatbot-actions-1 Created 
+ Container chatbot-rasa-1 Creating 
+ Container chatbot-rasa-1 Created 
+Attaching to actions-1, rasa-1, ui-1
+ Container chatbot-ui-1 Starting 
+ Container chatbot-actions-1 Starting 
+ Container chatbot-actions-1 Started 
+ Container chatbot-rasa-1 Starting 
+ Container chatbot-ui-1 Started 
+actions-1  | Available options:
+actions-1  |  start  - Start Rasa Action Server
+actions-1  |  help   - Print this help
+actions-1  |  run    - Run an arbitrary command inside the container
+ui-1       | 
+ui-1       | > bsbi@0.0.0 preview
+ui-1       | > vite preview --host --port 3000
+ui-1       | 
+ Container chatbot-rasa-1 Started 
+[Kactions-1 exited with code 0
+ui-1       |   ➜  Local:   http://localhost:3000/
+ui-1       |   ➜  Network: http://172.18.0.3:3000/
+rasa-1     | /opt/venv/lib/python3.10/site-packages/rasa/core/tracker_store.py:1044: MovedIn20Warning: Deprecated API features detected! These feature(s) are not compatible with SQLAlchemy 2.0. To prevent incompatible upgrades prior to updating applications, ensure requirements files are pinned to "sqlalchemy<2.0". Set environment variable SQLALCHEMY_WARN_20=1 to show all deprecation warnings.  Set environment variable SQLALCHEMY_SILENCE_UBER_WARNING=1 to silence this message. (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+rasa-1     |   Base: DeclarativeMeta = declarative_base()
+rasa-1     | usage: rasa [-h] [--version]
+rasa-1     |             {init,run,shell,train,interactive,telemetry,test,visualize,data,export,x,evaluate}
+rasa-1     |             ...
+rasa-1     | rasa: error: argument {init,run,shell,train,interactive,telemetry,test,visualize,data,export,x,evaluate}: invalid choice: 'rasa' (choose from 'init', 'run', 'shell', 'train', 'interactive', 'telemetry', 'test', 'visualize', 'data', 'export', 'x', 'evaluate')
+[Krasa-1 exited with code 2
