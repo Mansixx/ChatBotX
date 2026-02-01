@@ -1,39 +1,83 @@
 version: "3.1"
 
 stories:
-- story: fire emergency flow
+- story: fire emergency - safe - small fire
   steps:
   - intent: emergency_fire
+  - action: utter_fire_detected
+  - action: utter_ask_safety_status
+  - intent: confirm_safety
+  - action: utter_good_safe
   - action: utter_ask_location
   - intent: provide_location
-  - action: action_handle_emergency
+  - action: action_handle_fire_emergency
+  - action: utter_ask_fire_size
+  - intent: fire_size_small
+  - action: utter_small_fire_advice
+  - action: utter_stay_connected
 
-- story: medical emergency flow
+- story: fire emergency - safe - large fire
   steps:
-  - intent: emergency_medical
+  - intent: emergency_fire
+  - action: utter_fire_detected
+  - action: utter_ask_safety_status
+  - intent: confirm_safety
+  - action: utter_good_safe
   - action: utter_ask_location
   - intent: provide_location
-  - action: action_handle_emergency
+  - action: action_handle_fire_emergency
+  - action: utter_ask_fire_size
+  - intent: fire_size_large
+  - action: utter_large_fire_advice
+  - action: utter_stay_connected
 
-- story: flood emergency flow
+- story: fire emergency - not safe - trapped
   steps:
-  - intent: emergency_flood
+  - intent: emergency_fire
+  - action: utter_fire_detected
+  - action: utter_ask_safety_status
+  - intent: not_safe
+  - action: utter_trapped_help
   - action: utter_ask_location
   - intent: provide_location
-  - action: action_handle_emergency
+  - action: action_handle_fire_emergency_urgent
+  - action: utter_stay_calm
 
-- story: earthquake emergency flow
+- story: fire emergency - direct with location
   steps:
-  - intent: emergency_earthquake
+  - intent: emergency_fire
+  - action: utter_fire_detected
+  - action: utter_ask_safety_status
+  - intent: confirm_safety
+  - action: utter_good_safe
   - action: utter_ask_location
   - intent: provide_location
-  - action: action_handle_emergency
+  - action: action_handle_fire_emergency
 
-- story: greet then emergency
+- story: greeting then fire emergency
   steps:
   - intent: greet
   - action: utter_greet
   - intent: emergency_fire
+  - action: utter_fire_detected
+  - action: utter_ask_safety_status
+  - intent: confirm_safety
+  - action: utter_good_safe
   - action: utter_ask_location
   - intent: provide_location
-  - action: action_handle_emergency
+  - action: action_handle_fire_emergency
+  - action: utter_ask_fire_size
+  - intent: fire_size_small
+  - action: utter_small_fire_advice
+
+- story: fire emergency - safe - no fire size specified
+  steps:
+  - intent: emergency_fire
+  - action: utter_fire_detected
+  - action: utter_ask_safety_status
+  - intent: confirm_safety
+  - action: utter_good_safe
+  - action: utter_ask_location
+  - intent: provide_location
+  - action: action_handle_fire_emergency
+  - action: utter_stay_connected

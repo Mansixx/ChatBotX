@@ -11,6 +11,8 @@ nlu:
     - help me
     - I need help
     - please help
+    - urgent help needed
+    - emergency
 
 - intent: emergency_fire
   examples: |
@@ -28,47 +30,13 @@ nlu:
     - fire spreading
     - urgent fire
     - call fire department
-
-- intent: emergency_medical
-  examples: |
-    - medical emergency
-    - heart attack
-    - someone fainted
-    - need ambulance
-    - medical help needed
-    - person unconscious
-    - can't breathe
-    - chest pain
-    - stroke
-    - injured person
-    - need doctor
-    - serious injury
-    - medical crisis
-
-- intent: emergency_flood
-  examples: |
-    - flood
-    - heavy flooding
-    - water everywhere
-    - house is flooding
-    - water rising
-    - flood emergency
-    - water in house
-    - too much water
-    - flooding area
-    - flood help
-
-- intent: emergency_earthquake
-  examples: |
-    - earthquake
-    - tremors
-    - building shaking
-    - earthquake happening
-    - ground shaking
-    - aftershocks
-    - earthquake emergency
-    - buildings falling
-    - quake
+    - fire broke out
+    - kitchen fire
+    - electrical fire
+    - gas fire
+    - house burning
+    - office on fire
+    - there's smoke
 
 - intent: provide_location
   examples: |
@@ -82,6 +50,72 @@ nlu:
     - I'm at [Gurgaon](location)
     - [Noida](location)
     - near [Andheri](location)
+    - [Berlin](location)
+    - [London](location)
+    - [New York](location)
+    - [Paris](location)
+    - [Tokyo](location)
+    - I'm in [Seattle](location)
+    - at [Boston](location)
+    - [Manchester](location)
+    - [Chicago](location)
+    - [Los Angeles](location)
+
+- intent: confirm_safety
+  examples: |
+    - yes I'm safe
+    - I am safe
+    - safe
+    - yes
+    - we are safe
+    - everyone is safe
+    - all safe
+    - I got out
+    - we evacuated
+    - outside now
+    - yes we're safe
+    - everyone got out
+
+- intent: not_safe
+  examples: |
+    - no
+    - not safe
+    - still inside
+    - trapped
+    - can't get out
+    - stuck inside
+    - people trapped
+    - someone is trapped
+    - help us
+    - we need help
+    - we're trapped
+    - cannot escape
+
+- intent: fire_size_small
+  examples: |
+    - small fire
+    - just started
+    - small flames
+    - contained
+    - kitchen pan
+    - small
+    - tiny fire
+    - just smoke
+    - one room
+    - minor fire
+
+- intent: fire_size_large
+  examples: |
+    - big fire
+    - large fire
+    - whole room
+    - spreading fast
+    - out of control
+    - entire floor
+    - huge flames
+    - very large
+    - massive fire
+    - multiple rooms
 
 - intent: goodbye
   examples: |
@@ -90,3 +124,26 @@ nlu:
     - see you
     - thank you bye
     - thanks goodbye
+    - ok bye
+    - talk later
+
+- intent: affirm
+  examples: |
+    - yes
+    - yeah
+    - yep
+    - sure
+    - ok
+    - okay
+    - correct
+    - right
+    - that's right
+
+- intent: deny
+  examples: |
+    - no
+    - nope
+    - not really
+    - no way
+    - incorrect
+    - wrong
