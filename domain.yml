@@ -2,19 +2,24 @@ version: "3.1"
 
 intents:
   - greet
-  - emergency_fire
-  - provide_location
-  - confirm_safety
-  - not_safe
-  - fire_size_small
-  - fire_size_large
-  - goodbye
   - affirm
   - deny
+  - emergency_fire
+  - provide_location
+  - provide_number_people
+  - inform_injured_yes
+  - inform_injured_no
+  - inform_injured_unsure
+  - fire_spreading_yes
+  - fire_spreading_no
+  - safe_location
+  - cannot_evacuate
+  - goodbye
   - nlu_fallback
 
 entities:
   - location
+  - number
 
 slots:
   location:
@@ -22,76 +27,81 @@ slots:
     mappings:
       - type: from_entity
         entity: location
+      - type: from_text
+        intent: provide_location
   
-  risk_level:
+  people_count:
+    type: text
+    mappings:
+      - type: from_text
+        intent: provide_number_people
+  
+  has_injuries:
     type: text
     mappings:
       - type: custom
   
-  is_safe:
-    type: bool
+  fire_spreading:
+    type: text
     mappings:
       - type: custom
   
-  fire_size:
+  emergency_id:
     type: text
     mappings:
       - type: custom
 
 responses:
   utter_greet:
-    - text: "👋 Hello! I'm Mansi, your emergency crisis assistant. How can I help you today?"
+    - text: "👋 Hello! I'm Mansi, your AI emergency response assistant. I'm here to help coordinate emergency services."
   
-  utter_fire_detected:
-    - text: "🚨 Fire emergency detected! I'm here to help you right now."
+  utter_confirm_fire_emergency:
+    - text: "🚨 I'm here to help. Are you reporting a fire emergency?"
   
-  utter_ask_safety_status:
-    - text: "First and most important - are you and everyone else in a safe location right now?"
+  utter_ask_location_detailed:
+    - text: "📍 Please share your current location (address or nearby landmark)."
   
-  utter_good_safe:
-    - text: "✅ Good! I'm relieved you're safe. Let me get you emergency assistance immediately."
+  utter_ask_number_people:
+    - text: "👥 How many people are currently in danger or need rescue?"
   
-  utter_trapped_help:
-    - text: "🚨 URGENT - Stay calm. Help is on the way. I'm connecting you to emergency services RIGHT NOW."
+  utter_ask_injuries:
+    - text: "🏥 Is anyone injured?\n\nPlease respond with:\n• Yes\n• No\n• Not sure"
   
-  utter_ask_location:
-    - text: "📍 What is your exact location? (Please provide city/area and address if possible)"
+  utter_ask_fire_spreading:
+    - text: "🔥 Is the fire spreading rapidly?\n\nPlease respond with:\n• Yes\n• No"
   
-  utter_ask_fire_size:
-    - text: "Can you describe the fire? Is it small (one room) or large (multiple rooms/spreading)?"
+  utter_emergency_dispatched:
+    - text: "✅ **EMERGENCY ALERT SENT**\n\nFire department and emergency services have been automatically alerted with your location and situation details."
   
-  utter_small_fire_advice:
-    - text: |
-        For small fires:
-        🧯 If you have a fire extinguisher and know how to use it, you may attempt to put it out
-        🚪 Keep an exit route clear at all times
-        💨 Stay low if there's smoke
-        ⚠️ If it spreads, evacuate immediately
+  utter_emergency_dispatched_urgent:
+    - text: "🚨 **URGENT EMERGENCY ALERT SENT**\n\nFire department, ambulance, and emergency services are being dispatched immediately to your location!"
   
-  utter_large_fire_advice:
-    - text: |
-        For large fires:
-        🏃 DO NOT attempt to fight it - evacuate NOW
-        🚪 Close doors behind you to slow spread
-        🚫 Do NOT use elevators
-        👥 Alert others as you leave
-        📞 Call fire services once you're safe outside
+  utter_ask_can_evacuate:
+    - text: "⚠️ Can you safely evacuate to a safe location? Have you moved to safety?"
   
-  utter_stay_calm:
-    - text: "Please stay calm. Emergency services have been notified and are on their way. Do NOT hang up."
+  utter_good_evacuated:
+    - text: "✅ Good! You did the right thing by evacuating."
   
-  utter_stay_connected:
-    - text: "🆘 I'm here if you need anything else. Stay safe and follow the fire department's instructions when they arrive."
+  utter_stay_safe_outside:
+    - text: "📋 **IMPORTANT - While you wait:**\n\n• Stay at least 100 feet away from the building\n• Do NOT re-enter for any reason\n• Account for all people\n• Alert others nearby\n• Wait for emergency responders\n\n🚒 Fire department is on their way. ETA: 5-8 minutes."
+  
+  utter_trapped_instructions:
+    - text: "🆘 **YOU ARE TRAPPED - FOLLOW THESE STEPS:**\n\n1. Close doors between you and fire\n2. Seal door cracks with wet towels/cloth\n3. Stay LOW to the ground (fresh air)\n4. Signal from window if possible\n5. Cover nose/mouth with wet cloth\n6. Stay calm - help is coming fast"
+  
+  utter_help_coming:
+    - text: "🚒 **Fire rescue team is being dispatched NOW**\n\nThey have your exact location and know people are trapped. DO NOT HANG UP. Stay on this line."
   
   utter_goodbye:
-    - text: "Stay safe! 🆘 If the situation changes, contact emergency services immediately."
+    - text: "Stay safe! If the situation changes, I'm here to help."
   
   utter_fallback:
-    - text: "I didn't quite understand. Can you tell me more about the emergency situation?"
+    - text: "I didn't quite understand. Could you please respond with the requested information?"
 
 actions:
-  - action_handle_fire_emergency
-  - action_handle_fire_emergency_urgent
+  - action_save_location
+  - action_save_people_count
+  - action_save_injury_status
+  - action_process_emergency_alert
 
 session_config:
   session_expiration_time: 60

@@ -2,240 +2,189 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
-import requests
-
-# Emergency directory with country-specific numbers
-EMERGENCY_DIRECTORY = {
-    "India": {
-        "fire": "101",
-        "ambulance": "102",
-        "police": "100",
-        "emergency": "112"
-    },
-    "USA": {
-        "fire": "911",
-        "ambulance": "911",
-        "police": "911",
-        "emergency": "911"
-    },
-    "UK": {
-        "fire": "999",
-        "ambulance": "999",
-        "police": "999",
-        "emergency": "999"
-    },
-    "Germany": {
-        "fire": "112",
-        "ambulance": "112",
-        "police": "110",
-        "emergency": "112"
-    },
-    "France": {
-        "fire": "18",
-        "ambulance": "15",
-        "police": "17",
-        "emergency": "112"
-    },
-    "default": {
-        "fire": "112",
-        "ambulance": "112",
-        "police": "112",
-        "emergency": "112"
-    }
-}
-
-# Location to country mapping
-LOCATION_COUNTRY_MAP = {
-    "mumbai": "India",
-    "delhi": "India",
-    "bangalore": "India",
-    "pune": "India",
-    "chennai": "India",
-    "kolkata": "India",
-    "hyderabad": "India",
-    "gurgaon": "India",
-    "noida": "India",
-    "new york": "USA",
-    "los angeles": "USA",
-    "chicago": "USA",
-    "seattle": "USA",
-    "boston": "USA",
-    "san francisco": "USA",
-    "london": "UK",
-    "manchester": "UK",
-    "birmingham": "UK",
-    "berlin": "Germany",
-    "munich": "Germany",
-    "hamburg": "Germany",
-    "paris": "France",
-    "lyon": "France",
-    "marseille": "France",
-}
+import datetime
+import random
 
 
-class ActionHandleFireEmergency(Action):
-    """Handle fire emergency with location validation for safe users"""
-    
+class ActionSaveLocation(Action):
+    """Save the location provided by user"""
+
     def name(self) -> Text:
-        return "action_handle_fire_emergency"
-    
-    def validate_location(self, location: str) -> bool:
-        """Uses OpenStreetMap API to validate city"""
-        if not location:
-            return False
-        try:
-            url = f"https://nominatim.openstreetmap.org/search?format=json&q={location}"
-            headers = {"User-Agent": "RasaCrisisBot/1.0"}
-            res = requests.get(url, headers=headers, timeout=5)
-            return len(res.json()) > 0
-        except:
-            return False
-    
-    def get_country_from_location(self, location: str) -> str:
-        """Determine country from location"""
-        location_lower = location.lower()
-        for city, country in LOCATION_COUNTRY_MAP.items():
-            if city in location_lower:
-                return country
-        return "default"
-    
+        return "action_save_location"
+
     def run(
         self,
         dispatcher: CollectingDispatcher,
         tracker: Tracker,
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
+        # Get location from message text
+        location = tracker.latest_message.get('text', '').strip()
         
-        # Get location from slot or entity
-        location = tracker.get_slot("location")
-        if not location:
-            entities = tracker.latest_message.get('entities', [])
-            for entity in entities:
-                if entity.get('entity') == 'location':
-                    location = entity.get('value')
-                    break
-        
-        if not location:
-            dispatcher.utter_message(text="📍 I need your location to send help. What city/area are you in?")
-            return []
-        
-        # Validate location
-        valid = self.validate_location(location)
-        if not valid:
+        # Also check entities
+        entities = tracker.latest_message.get('entities', [])
+        for entity in entities:
+            if entity.get('entity') == 'location':
+                location = entity.get('value')
+                break
+
+        if not location or len(location) < 3:
             dispatcher.utter_message(
-                text=f"⚠️ I couldn't verify '{location}'. Please provide a nearby major city or area."
+                text="⚠️ I need a valid location. Please provide your address or a nearby landmark."
             )
-            return [SlotSet("location", None)]
-        
-        # Get appropriate emergency numbers
-        country = self.get_country_from_location(location)
-        services = EMERGENCY_DIRECTORY.get(country, EMERGENCY_DIRECTORY["default"])
-        
-        # Send emergency information
+            return []
+
+        # Confirm location received
         dispatcher.utter_message(
-            text=f"🚨 **EMERGENCY SERVICES FOR {location.upper()}**"
+            text=f"✓ Location recorded: {location}"
         )
         
-        dispatcher.utter_message(
-            text=f"📞 **CALL IMMEDIATELY:**\n\n"
-                 f"🔥 Fire Emergency: **{services['fire']}**\n"
-                 f"🚑 Ambulance: **{services['ambulance']}**\n"
-                 f"👮 Police: **{services['police']}**"
-        )
-        
-        dispatcher.utter_message(
-            text="⚠️ **WHILE WAITING:**\n"
-                 "• Stay outside and away from smoke\n"
-                 "• Do NOT re-enter the building\n"
-                 "• Account for all people\n"
-                 "• Warn others nearby"
-        )
-        
-        return [
-            SlotSet("location", location),
-            SlotSet("risk_level", "HIGH")
-        ]
+        return [SlotSet("location", location)]
 
 
-class ActionHandleFireEmergencyUrgent(Action):
-    """Handle fire emergency when people are trapped - CRITICAL"""
-    
+class ActionSavePeopleCount(Action):
+    """Save the number of people in danger"""
+
     def name(self) -> Text:
-        return "action_handle_fire_emergency_urgent"
-    
-    def validate_location(self, location: str) -> bool:
-        """Uses OpenStreetMap API to validate city"""
-        if not location:
-            return False
-        try:
-            url = f"https://nominatim.openstreetmap.org/search?format=json&q={location}"
-            headers = {"User-Agent": "RasaCrisisBot/1.0"}
-            res = requests.get(url, headers=headers, timeout=5)
-            return len(res.json()) > 0
-        except:
-            return False
-    
-    def get_country_from_location(self, location: str) -> str:
-        """Determine country from location"""
-        location_lower = location.lower()
-        for city, country in LOCATION_COUNTRY_MAP.items():
-            if city in location_lower:
-                return country
-        return "default"
-    
+        return "action_save_people_count"
+
     def run(
         self,
         dispatcher: CollectingDispatcher,
         tracker: Tracker,
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
+        # Get the message text
+        message = tracker.latest_message.get('text', '').lower().strip()
         
-        # Get location
-        location = tracker.get_slot("location")
-        if not location:
-            entities = tracker.latest_message.get('entities', [])
-            for entity in entities:
-                if entity.get('entity') == 'location':
-                    location = entity.get('value')
-                    break
+        # Try to extract number
+        people_count = None
         
-        if not location:
-            dispatcher.utter_message(text="📍 URGENT: What is your exact location? (City and address)")
+        # Look for digits
+        import re
+        numbers = re.findall(r'\d+', message)
+        if numbers:
+            people_count = numbers[0]
+        # Look for text numbers
+        elif 'one' in message or 'just me' in message:
+            people_count = "1"
+        elif 'two' in message:
+            people_count = "2"
+        elif 'three' in message:
+            people_count = "3"
+        elif 'four' in message:
+            people_count = "4"
+        elif 'five' in message:
+            people_count = "5"
+        elif 'many' in message or 'several' in message:
+            people_count = "10+"
+
+        if not people_count:
+            dispatcher.utter_message(
+                text="⚠️ Please specify the number of people (e.g., '3 people' or 'just me')"
+            )
             return []
-        
-        # Get emergency numbers
-        country = self.get_country_from_location(location)
-        services = EMERGENCY_DIRECTORY.get(country, EMERGENCY_DIRECTORY["default"])
-        
-        # Send URGENT information
+
+        # Confirm
         dispatcher.utter_message(
-            text=f"🚨🚨 **CRITICAL EMERGENCY - {location.upper()}** 🚨🚨"
+            text=f"✓ Number of people recorded: {people_count}"
         )
         
-        dispatcher.utter_message(
-            text=f"📞 **CALL NOW - PEOPLE TRAPPED:**\n\n"
-                 f"🔥 **{services['fire']}** ← CALL THIS NUMBER NOW\n\n"
-                 f"Tell them:\n"
-                 f"• Fire emergency\n"
-                 f"• People trapped inside\n"
-                 f"• Your exact address"
-        )
+        return [SlotSet("people_count", people_count)]
+
+
+class ActionSaveInjuryStatus(Action):
+    """Save injury information - handles multiple intent types"""
+
+    def name(self) -> Text:
+        return "action_save_injury_status"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        intent = tracker.latest_message['intent'].get('name')
         
+        # Handle specific injury intents
+        if intent == 'inform_injured_yes':
+            injury_status = "YES - Injuries reported"
+            dispatcher.utter_message(text="✓ Injury status: YES - Medical assistance will be prioritized")
+        elif intent == 'inform_injured_no':
+            injury_status = "NO - No injuries"
+            dispatcher.utter_message(text="✓ Injury status: NO injuries reported")
+        elif intent == 'inform_injured_unsure':
+            injury_status = "UNKNOWN - Unsure"
+            dispatcher.utter_message(text="✓ Injury status: Unsure - Medical team will be on standby")
+        # Handle generic affirm/deny (common when users say "yes"/"no")
+        elif intent == 'affirm':
+            injury_status = "YES - Injuries reported"
+            dispatcher.utter_message(text="✓ Injury status: YES - Medical assistance will be prioritized")
+        elif intent == 'deny':
+            injury_status = "NO - No injuries"
+            dispatcher.utter_message(text="✓ Injury status: NO injuries reported")
+        else:
+            injury_status = "NOT PROVIDED"
+            
+        return [SlotSet("has_injuries", injury_status)]
+
+
+class ActionProcessEmergencyAlert(Action):
+    """Process and dispatch emergency alert"""
+
+    def name(self) -> Text:
+        return "action_process_emergency_alert"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        # Get all collected information
+        location = tracker.get_slot("location")
+        people_count = tracker.get_slot("people_count")
+        has_injuries = tracker.get_slot("has_injuries")
+
+        # Get fire spreading status
+        intent = tracker.latest_message['intent'].get('name')
+        if intent == 'fire_spreading_yes' or intent == 'affirm':
+            fire_spreading = "YES - Rapidly spreading"
+        else:
+            fire_spreading = "NO - Contained"
+
+        # Generate emergency ID
+        timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+        emergency_id = f"FIRE-{timestamp}-{random.randint(1000, 9999)}"
+
+        # Create emergency summary
         dispatcher.utter_message(
-            text="⚠️ **IF YOU'RE TRAPPED:**\n"
-                 "• Close doors between you and fire\n"
-                 "• Seal cracks with cloth/towels\n"
-                 "• Signal from window if possible\n"
-                 "• Stay low to floor for fresh air\n"
-                 "• Cover nose/mouth with wet cloth"
+            text=f"📋 **EMERGENCY REPORT SUMMARY**\n\n"
+                 f"🆔 Emergency ID: {emergency_id}\n"
+                 f"📍 Location: {location}\n"
+                 f"👥 People affected: {people_count}\n"
+                 f"🏥 Injuries: {has_injuries}\n"
+                 f"🔥 Fire spreading: {fire_spreading}\n"
+                 f"⏰ Reported: {datetime.datetime.now().strftime('%I:%M %p')}"
         )
-        
+
+        # In a real system, this would:
+        # 1. Send alert to fire department API
+        # 2. Send SMS to emergency services
+        # 3. Log in emergency database
+        # 4. Notify nearby hospitals if injuries
+        # 5. Alert police if needed
+
         dispatcher.utter_message(
-            text="🆘 Emergency services are being dispatched. Stay on the line with them!"
+            text="🚨 **ALERT TRANSMITTED TO:**\n"
+                 "✓ Fire Department\n"
+                 "✓ Emergency Medical Services\n"
+                 "✓ Police (for crowd control)\n"
+                 "✓ Local Emergency Command Center"
         )
-        
+
         return [
-            SlotSet("location", location),
-            SlotSet("risk_level", "CRITICAL"),
-            SlotSet("is_safe", False)
+            SlotSet("emergency_id", emergency_id),
+            SlotSet("fire_spreading", fire_spreading)
         ]

@@ -14,6 +14,28 @@ nlu:
     - urgent help needed
     - emergency
 
+- intent: affirm
+  examples: |
+    - yes
+    - yeah
+    - yep
+    - sure
+    - correct
+    - that's right
+    - yes please
+    - affirmative
+    - absolutely
+    - definitely
+
+- intent: deny
+  examples: |
+    - no
+    - nope
+    - not really
+    - negative
+    - no way
+    - I don't think so
+
 - intent: emergency_fire
   examples: |
     - fire
@@ -29,7 +51,6 @@ nlu:
     - building on fire
     - fire spreading
     - urgent fire
-    - call fire department
     - fire broke out
     - kitchen fire
     - electrical fire
@@ -37,85 +58,98 @@ nlu:
     - house burning
     - office on fire
     - there's smoke
+    - reporting a fire
 
 - intent: provide_location
   examples: |
-    - I am in [Mumbai](location)
-    - [Delhi](location)
-    - my location is [Bangalore](location)
-    - [Pune](location)
-    - in [Chennai](location)
-    - [Kolkata](location)
-    - [Hyderabad](location)
-    - I'm at [Gurgaon](location)
-    - [Noida](location)
-    - near [Andheri](location)
-    - [Berlin](location)
-    - [London](location)
-    - [New York](location)
-    - [Paris](location)
-    - [Tokyo](location)
-    - I'm in [Seattle](location)
-    - at [Boston](location)
-    - [Manchester](location)
-    - [Chicago](location)
-    - [Los Angeles](location)
+    - I am at 123 Main Street
+    - 456 Park Avenue
+    - near City Hall
+    - downtown area
+    - [123 Main Street](location)
+    - [Downtown Mumbai](location)
+    - [Berlin Central Station](location)
+    - my address is 789 Oak Road
+    - apartment 5B building 12
+    - I'm at the mall
+    - we're in the office building
 
-- intent: confirm_safety
+- intent: provide_number_people
   examples: |
-    - yes I'm safe
-    - I am safe
-    - safe
-    - yes
-    - we are safe
-    - everyone is safe
-    - all safe
-    - I got out
-    - we evacuated
-    - outside now
-    - yes we're safe
-    - everyone got out
+    - 5 people
+    - five people
+    - 3
+    - three
+    - just me
+    - 1 person
+    - around 10 people
+    - about 7
+    - 2 people
+    - many people
+    - 15 people
 
-- intent: not_safe
+- intent: inform_injured_yes
   examples: |
-    - no
-    - not safe
-    - still inside
-    - trapped
-    - can't get out
-    - stuck inside
-    - people trapped
-    - someone is trapped
-    - help us
-    - we need help
-    - we're trapped
-    - cannot escape
+    - yes someone is injured
+    - yes there are injuries
+    - people are hurt
+    - someone is bleeding
+    - yes injured
+    - badly hurt
+    - someone can't breathe
 
-- intent: fire_size_small
+- intent: inform_injured_no
   examples: |
-    - small fire
-    - just started
-    - small flames
-    - contained
-    - kitchen pan
-    - small
-    - tiny fire
-    - just smoke
-    - one room
-    - minor fire
+    - no injuries
+    - everyone is okay
+    - no one is hurt
+    - all fine physically
+    - no injuries yet
 
-- intent: fire_size_large
+- intent: inform_injured_unsure
   examples: |
-    - big fire
-    - large fire
-    - whole room
+    - not sure
+    - I don't know
+    - can't tell
+    - maybe
+    - possibly
+    - I'm not sure about injuries
+    - unclear
+
+- intent: fire_spreading_yes
+  examples: |
+    - yes it's spreading
     - spreading fast
-    - out of control
-    - entire floor
-    - huge flames
-    - very large
-    - massive fire
-    - multiple rooms
+    - spreading rapidly
+    - getting worse
+    - growing quickly
+    - flames spreading
+    - yes spreading
+
+- intent: fire_spreading_no
+  examples: |
+    - no not spreading
+    - contained
+    - staying in one place
+    - not getting worse
+    - stable
+
+- intent: safe_location
+  examples: |
+    - we're safe now
+    - moved to safe place
+    - outside now
+    - evacuated
+    - in safe area
+
+- intent: cannot_evacuate
+  examples: |
+    - can't get out
+    - trapped
+    - stuck
+    - door blocked
+    - can't evacuate
+    - unable to leave
 
 - intent: goodbye
   examples: |
@@ -124,26 +158,3 @@ nlu:
     - see you
     - thank you bye
     - thanks goodbye
-    - ok bye
-    - talk later
-
-- intent: affirm
-  examples: |
-    - yes
-    - yeah
-    - yep
-    - sure
-    - ok
-    - okay
-    - correct
-    - right
-    - that's right
-
-- intent: deny
-  examples: |
-    - no
-    - nope
-    - not really
-    - no way
-    - incorrect
-    - wrong

@@ -1,83 +1,178 @@
 version: "3.1"
 
 stories:
-- story: fire emergency - safe - small fire
-  steps:
-  - intent: emergency_fire
-  - action: utter_fire_detected
-  - action: utter_ask_safety_status
-  - intent: confirm_safety
-  - action: utter_good_safe
-  - action: utter_ask_location
-  - intent: provide_location
-  - action: action_handle_fire_emergency
-  - action: utter_ask_fire_size
-  - intent: fire_size_small
-  - action: utter_small_fire_advice
-  - action: utter_stay_connected
+  # Main story - injuries with inform_injured_yes
+  - story: fire emergency with injuries - using inform_injured_yes
+    steps:
+      - intent: emergency_fire
+      - action: utter_confirm_fire_emergency
+      - intent: affirm
+      - action: utter_ask_location_detailed
+      - intent: provide_location
+      - action: action_save_location
+      - action: utter_ask_number_people
+      - intent: provide_number_people
+      - action: action_save_people_count
+      - action: utter_ask_injuries
+      - intent: inform_injured_yes
+      - action: action_save_injury_status
+      - action: utter_ask_fire_spreading
+      - intent: fire_spreading_yes
+      - action: action_process_emergency_alert
+      - action: utter_emergency_dispatched_urgent
+      - action: utter_ask_can_evacuate
 
-- story: fire emergency - safe - large fire
-  steps:
-  - intent: emergency_fire
-  - action: utter_fire_detected
-  - action: utter_ask_safety_status
-  - intent: confirm_safety
-  - action: utter_good_safe
-  - action: utter_ask_location
-  - intent: provide_location
-  - action: action_handle_fire_emergency
-  - action: utter_ask_fire_size
-  - intent: fire_size_large
-  - action: utter_large_fire_advice
-  - action: utter_stay_connected
+  # Story handling affirm as "yes" to injuries
+  - story: fire emergency with injuries - using affirm
+    steps:
+      - intent: emergency_fire
+      - action: utter_confirm_fire_emergency
+      - intent: affirm
+      - action: utter_ask_location_detailed
+      - intent: provide_location
+      - action: action_save_location
+      - action: utter_ask_number_people
+      - intent: provide_number_people
+      - action: action_save_people_count
+      - action: utter_ask_injuries
+      - intent: affirm
+      - action: action_save_injury_status
+      - action: utter_ask_fire_spreading
+      - intent: fire_spreading_yes
+      - action: action_process_emergency_alert
+      - action: utter_emergency_dispatched_urgent
+      - action: utter_ask_can_evacuate
 
-- story: fire emergency - not safe - trapped
-  steps:
-  - intent: emergency_fire
-  - action: utter_fire_detected
-  - action: utter_ask_safety_status
-  - intent: not_safe
-  - action: utter_trapped_help
-  - action: utter_ask_location
-  - intent: provide_location
-  - action: action_handle_fire_emergency_urgent
-  - action: utter_stay_calm
+  # No injuries - using inform_injured_no
+  - story: fire emergency no injuries - using inform_injured_no
+    steps:
+      - intent: emergency_fire
+      - action: utter_confirm_fire_emergency
+      - intent: affirm
+      - action: utter_ask_location_detailed
+      - intent: provide_location
+      - action: action_save_location
+      - action: utter_ask_number_people
+      - intent: provide_number_people
+      - action: action_save_people_count
+      - action: utter_ask_injuries
+      - intent: inform_injured_no
+      - action: action_save_injury_status
+      - action: utter_ask_fire_spreading
+      - intent: fire_spreading_no
+      - action: action_process_emergency_alert
+      - action: utter_emergency_dispatched
+      - action: utter_ask_can_evacuate
 
-- story: fire emergency - direct with location
-  steps:
-  - intent: emergency_fire
-  - action: utter_fire_detected
-  - action: utter_ask_safety_status
-  - intent: confirm_safety
-  - action: utter_good_safe
-  - action: utter_ask_location
-  - intent: provide_location
-  - action: action_handle_fire_emergency
+  # No injuries - using deny
+  - story: fire emergency no injuries - using deny
+    steps:
+      - intent: emergency_fire
+      - action: utter_confirm_fire_emergency
+      - intent: affirm
+      - action: utter_ask_location_detailed
+      - intent: provide_location
+      - action: action_save_location
+      - action: utter_ask_number_people
+      - intent: provide_number_people
+      - action: action_save_people_count
+      - action: utter_ask_injuries
+      - intent: deny
+      - action: action_save_injury_status
+      - action: utter_ask_fire_spreading
+      - intent: fire_spreading_no
+      - action: action_process_emergency_alert
+      - action: utter_emergency_dispatched
+      - action: utter_ask_can_evacuate
 
-- story: greeting then fire emergency
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: emergency_fire
-  - action: utter_fire_detected
-  - action: utter_ask_safety_status
-  - intent: confirm_safety
-  - action: utter_good_safe
-  - action: utter_ask_location
-  - intent: provide_location
-  - action: action_handle_fire_emergency
-  - action: utter_ask_fire_size
-  - intent: fire_size_small
-  - action: utter_small_fire_advice
+  # Unsure about injuries - using inform_injured_unsure
+  - story: fire emergency unsure injuries - using inform_injured_unsure
+    steps:
+      - intent: emergency_fire
+      - action: utter_confirm_fire_emergency
+      - intent: affirm
+      - action: utter_ask_location_detailed
+      - intent: provide_location
+      - action: action_save_location
+      - action: utter_ask_number_people
+      - intent: provide_number_people
+      - action: action_save_people_count
+      - action: utter_ask_injuries
+      - intent: inform_injured_unsure
+      - action: action_save_injury_status
+      - action: utter_ask_fire_spreading
+      - intent: fire_spreading_yes
+      - action: action_process_emergency_alert
+      - action: utter_emergency_dispatched
+      - action: utter_ask_can_evacuate
 
-- story: fire emergency - safe - no fire size specified
-  steps:
-  - intent: emergency_fire
-  - action: utter_fire_detected
-  - action: utter_ask_safety_status
-  - intent: confirm_safety
-  - action: utter_good_safe
-  - action: utter_ask_location
-  - intent: provide_location
-  - action: action_handle_fire_emergency
-  - action: utter_stay_connected
+  # Fire spreading - using affirm
+  - story: fire spreading using affirm
+    steps:
+      - intent: emergency_fire
+      - action: utter_confirm_fire_emergency
+      - intent: affirm
+      - action: utter_ask_location_detailed
+      - intent: provide_location
+      - action: action_save_location
+      - action: utter_ask_number_people
+      - intent: provide_number_people
+      - action: action_save_people_count
+      - action: utter_ask_injuries
+      - intent: deny
+      - action: action_save_injury_status
+      - action: utter_ask_fire_spreading
+      - intent: affirm
+      - action: action_process_emergency_alert
+      - action: utter_emergency_dispatched
+      - action: utter_ask_can_evacuate
+
+  # Fire not spreading - using deny
+  - story: fire not spreading using deny
+    steps:
+      - intent: emergency_fire
+      - action: utter_confirm_fire_emergency
+      - intent: affirm
+      - action: utter_ask_location_detailed
+      - intent: provide_location
+      - action: action_save_location
+      - action: utter_ask_number_people
+      - intent: provide_number_people
+      - action: action_save_people_count
+      - action: utter_ask_injuries
+      - intent: deny
+      - action: action_save_injury_status
+      - action: utter_ask_fire_spreading
+      - intent: deny
+      - action: action_process_emergency_alert
+      - action: utter_emergency_dispatched
+      - action: utter_ask_can_evacuate
+
+  # Evacuation paths
+  - story: user can evacuate
+    steps:
+      - action: utter_ask_can_evacuate
+      - intent: safe_location
+      - action: utter_good_evacuated
+      - action: utter_stay_safe_outside
+
+  - story: user can evacuate - using affirm
+    steps:
+      - action: utter_ask_can_evacuate
+      - intent: affirm
+      - action: utter_good_evacuated
+      - action: utter_stay_safe_outside
+
+  - story: user cannot evacuate
+    steps:
+      - action: utter_ask_can_evacuate
+      - intent: cannot_evacuate
+      - action: utter_trapped_instructions
+      - action: utter_help_coming
+
+  - story: user cannot evacuate - using deny
+    steps:
+      - action: utter_ask_can_evacuate
+      - intent: deny
+      - action: utter_trapped_instructions
+      - action: utter_help_coming
