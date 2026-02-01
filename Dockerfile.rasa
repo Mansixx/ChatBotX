@@ -1,0 +1,9 @@
+FROM rasa/rasa:3.6.20
+
+WORKDIR /app
+
+COPY . .
+
+EXPOSE 5005
+
+CMD ["run", "--enable-api", "--cors", "*", "--debug"]

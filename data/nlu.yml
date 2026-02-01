@@ -1,0 +1,92 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hi
+    - hello
+    - hey
+    - good morning
+    - good evening
+    - help me
+    - I need help
+    - please help
+
+- intent: emergency_fire
+  examples: |
+    - fire
+    - there is a fire
+    - fire in my house
+    - my house is on fire
+    - building is burning
+    - fire accident
+    - smoke everywhere
+    - flames in building
+    - fire emergency
+    - help fire
+    - building on fire
+    - fire spreading
+    - urgent fire
+    - call fire department
+
+- intent: emergency_medical
+  examples: |
+    - medical emergency
+    - heart attack
+    - someone fainted
+    - need ambulance
+    - medical help needed
+    - person unconscious
+    - can't breathe
+    - chest pain
+    - stroke
+    - injured person
+    - need doctor
+    - serious injury
+    - medical crisis
+
+- intent: emergency_flood
+  examples: |
+    - flood
+    - heavy flooding
+    - water everywhere
+    - house is flooding
+    - water rising
+    - flood emergency
+    - water in house
+    - too much water
+    - flooding area
+    - flood help
+
+- intent: emergency_earthquake
+  examples: |
+    - earthquake
+    - tremors
+    - building shaking
+    - earthquake happening
+    - ground shaking
+    - aftershocks
+    - earthquake emergency
+    - buildings falling
+    - quake
+
+- intent: provide_location
+  examples: |
+    - I am in [Mumbai](location)
+    - [Delhi](location)
+    - my location is [Bangalore](location)
+    - [Pune](location)
+    - in [Chennai](location)
+    - [Kolkata](location)
+    - [Hyderabad](location)
+    - I'm at [Gurgaon](location)
+    - [Noida](location)
+    - near [Andheri](location)
+
+- intent: goodbye
+  examples: |
+    - bye
+    - goodbye
+    - see you
+    - thank you bye
+    - thanks goodbye

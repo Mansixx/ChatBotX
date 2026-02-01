@@ -1,0 +1,51 @@
+version: "3.1"
+
+intents:
+  - greet
+  - emergency_fire
+  - emergency_flood
+  - emergency_medical
+  - emergency_earthquake
+  - provide_location
+  - goodbye
+  - nlu_fallback
+
+entities:
+  - location
+
+slots:
+  location:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: location
+  
+  risk_level:
+    type: text
+    mappings:
+      - type: custom
+  
+  incident_type:
+    type: text
+    mappings:
+      - type: custom
+
+responses:
+  utter_greet:
+    - text: "👋 Hello! I'm Mansi, your crisis assistant. I'm here to help with emergencies. What situation are you facing?"
+  
+  utter_ask_location:
+    - text: "📍 Please tell me your city or area so I can provide local emergency contacts."
+  
+  utter_goodbye:
+    - text: "Stay safe! 🆘 Remember to call emergency services if needed."
+  
+  utter_fallback:
+    - text: "I didn't understand. Please tell me if it's fire, flood, earthquake, or medical emergency."
+
+actions:
+  - action_handle_emergency
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
