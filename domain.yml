@@ -1,48 +1,107 @@
-# 
 version: "3.1"
 
 intents:
   - greet
-  - emergency_type
+  - affirm
+  - deny
+  - emergency_fire
   - provide_location
+  - provide_number_people
+  - inform_injured_yes
+  - inform_injured_no
+  - inform_injured_unsure
+  - fire_spreading_yes
+  - fire_spreading_no
+  - safe_location
+  - cannot_evacuate
   - goodbye
+  - nlu_fallback
 
 entities:
   - location
+  - number
 
 slots:
-  incident_type:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_text
-        intent: emergency_type
-
   location:
     type: text
-    influence_conversation: true
     mappings:
       - type: from_entity
         entity: location
-
-  risk_level:
+      - type: from_text
+        intent: provide_location
+  
+  people_count:
     type: text
-    influence_conversation: false
+    mappings:
+      - type: from_text
+        intent: provide_number_people
+  
+  has_injuries:
+    type: text
+    mappings:
+      - type: custom
+  
+  fire_spreading:
+    type: text
+    mappings:
+      - type: custom
+  
+  emergency_id:
+    type: text
     mappings:
       - type: custom
 
 responses:
   utter_greet:
-    - text: "Hello, I am Mansi. What emergency are you facing?"
-
+    - text: "👋 Hello! I'm Mansi, your AI emergency response assistant. I'm here to help coordinate emergency services."
+  
+  utter_confirm_fire_emergency:
+    - text: "🚨 I'm here to help. Are you reporting a fire emergency?"
+  
+  utter_ask_location_detailed:
+    - text: "📍 Please share your current location (address or nearby landmark)."
+  
+  utter_ask_number_people:
+    - text: "👥 How many people are currently in danger or need rescue?"
+  
+  utter_ask_injuries:
+    - text: "🏥 Is anyone injured?\n\nPlease respond with:\n• Yes\n• No\n• Not sure"
+  
+  utter_ask_fire_spreading:
+    - text: "🔥 Is the fire spreading rapidly?\n\nPlease respond with:\n• Yes\n• No"
+  
+  utter_emergency_dispatched:
+    - text: "✅ **EMERGENCY ALERT SENT**\n\nFire department and emergency services have been automatically alerted with your location and situation details."
+  
+  utter_emergency_dispatched_urgent:
+    - text: "🚨 **URGENT EMERGENCY ALERT SENT**\n\nFire department, ambulance, and emergency services are being dispatched immediately to your location!"
+  
+  utter_ask_can_evacuate:
+    - text: "⚠️ Can you safely evacuate to a safe location? Have you moved to safety?"
+  
+  utter_good_evacuated:
+    - text: "✅ Good! You did the right thing by evacuating."
+  
+  utter_stay_safe_outside:
+    - text: "📋 **IMPORTANT - While you wait:**\n\n• Stay at least 100 feet away from the building\n• Do NOT re-enter for any reason\n• Account for all people\n• Alert others nearby\n• Wait for emergency responders\n\n🚒 Fire department is on their way. ETA: 5-8 minutes."
+  
+  utter_trapped_instructions:
+    - text: "🆘 **YOU ARE TRAPPED - FOLLOW THESE STEPS:**\n\n1. Close doors between you and fire\n2. Seal door cracks with wet towels/cloth\n3. Stay LOW to the ground (fresh air)\n4. Signal from window if possible\n5. Cover nose/mouth with wet cloth\n6. Stay calm - help is coming fast"
+  
+  utter_help_coming:
+    - text: "🚒 **Fire rescue team is being dispatched NOW**\n\nThey have your exact location and know people are trapped. DO NOT HANG UP. Stay on this line."
+  
   utter_goodbye:
-    - text: "Stay safe. I’m here if you need help again."
-
+    - text: "Stay safe! If the situation changes, I'm here to help."
+  
   utter_fallback:
-    - text: "I didn't understand. Please tell me if it's fire, flood, earthquake, or medical."
+    - text: "I didn't quite understand. Could you please respond with the requested information?"
 
 actions:
-  - action_handle_emergency
+  - action_save_location
+  - action_save_people_count
+  - action_save_injury_status
+  - action_process_emergency_alert
 
 session_config:
   session_expiration_time: 60

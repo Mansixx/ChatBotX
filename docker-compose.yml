@@ -1,64 +1,38 @@
-# # 
-
-# version: '3.8'
-# services:
-#   rasa:
-#     platform: linux/amd64
-#     build:
-#       context: .
-#       dockerfile: Dockerfile.rasa
-#     ports:
-#       - "5005:5005"
-#     depends_on:
-#       - actions
-#     volumes:
-#       - ./models:/app/models
-#       - ./endpoints.yml:/app/endpoints.yml
-#     # REMOVE command: line completely - use Dockerfile CMD
-
-#   actions:
-#     platform: linux/amd64
-#     build:
-#       context: .
-#       dockerfile: Dockerfile.actions
-#     ports:
-#       - "5055:5055"
-#     # REMOVE command: line completely - use Dockerfile CMD
-
-#   ui:
-#     build:
-#       context: ./ui
-#     ports:
-#       - "3000:3000"
-#     depends_on:
-#       - rasa
-
+version: "3.8"
 
 services:
+  rasa:
+    image: rasa/rasa:3.6.20
+    platform: linux/amd64
+    command:
+      - run
+      - --enable-api
+      - --cors
+      - "*"
+      - --debug
+      - --endpoints
+      - endpoints.yml
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./:/app
+    working_dir: /app
+    depends_on:
+      - actions
+
   actions:
-    image: rasa/rasa-sdk:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.actions
     ports:
       - "5055:5055"
     volumes:
       - ./actions:/app/actions
-    command: rasa run actions --debug
-
-  rasa:
-    image: rasa/rasa:latest
-    ports:
-      - "5005:5005"
-    depends_on:
-      - actions
-    volumes:
-      - .:/app
-    command: run --enable-api --cors "*" --debug -m models
-    environment:
-      - PYTHONWARNINGS="ignore::DeprecationWarning"
 
   ui:
-    build: ./ui
+    build:
+      context: ./ui
     ports:
-      - "3000:3000"
+      - "4173:4173"
     depends_on:
       - rasa
-

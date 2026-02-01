@@ -1,31 +1,13 @@
 FROM rasa/rasa-sdk:3.6.2
 
-# USER root
-# WORKDIR /app
-
-# # FIX 1: Correct filename for actions
-# COPY actions/requirements-actions.txt /app/requirements-actions.txt
-
-# # FIX 2: Install dependencies
-# RUN pip install --no-cache-dir -r /app/requirements-actions.txt
-
-# COPY actions /app/actions
-
-# # FIX 3: Use correct Rasa SDK user (not 1001)
-# USER 1001:1001
-
-# # FIX 4: CORRECT Rasa SDK command
-# CMD ["rasa", "run", "actions", "--actions", "actions", "--debug"]
-# #CMD ["rasa", "run", "actions", "--debug"]
-
-
-FROM rasa/rasa-sdk:3.6.2
 USER root
-WORKDIR /app
-COPY actions/requirements-actions.txt /app/requirements-actions.txt
-RUN pip install --no-cache-dir -r /app/requirements-actions.txt
-COPY actions /app/actions
-USER 1001
-# THIS LINE - EXACTLY:
-CMD ["start", "--actions", "actions"]
 
+WORKDIR /app
+
+COPY requirements.txt /app/
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY actions /app/actions
+
+USER 1001

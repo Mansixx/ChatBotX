@@ -1,4 +1,9 @@
 metrics:
   enabled: true
+<<<<<<< HEAD
   rasa_user_id: fb16bec50318485c9276ae188a27dcae
   date: 2026-01-31 21:59:13.677240
+=======
+  rasa_user_id: e2fab3c53ce2423291f089bf8ab629c9
+  date: 2026-01-31 20:05:59.484727
+>>>>>>> docker-fixed

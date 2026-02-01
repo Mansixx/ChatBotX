@@ -9,8 +9,8 @@ export default function ChatUI() {
   const bottomRef = useRef(null)
 
 
-const RASA_URL = window.location.origin.replace(":3000", ":5005")
-
+const RASA_URL = window.location.origin.replace("4173", "5005")
+// const RASA_URL = "http://localhost:5005"
   // const RASA_URL = "http://13.48.85.237:5005"
 
   // Test Rasa connection on mount

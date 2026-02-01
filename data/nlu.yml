@@ -1,35 +1,165 @@
-# 
 version: "3.1"
 
 nlu:
-
 - intent: greet
   examples: |
     - hi
     - hello
     - hey
     - good morning
+    - good evening
+    - help me
+    - I need help
+    - please help
+    - urgent help needed
+    - emergency
 
-- intent: emergency_type
+- intent: affirm
+  examples: |
+    - yes
+    - yeah
+    - yep
+    - sure
+    - correct
+    - that's right
+    - yes please
+    - affirmative
+    - absolutely
+    - definitely
+
+- intent: deny
+  examples: |
+    - no
+    - nope
+    - not really
+    - negative
+    - no way
+    - I don't think so
+
+- intent: emergency_fire
   examples: |
     - fire
-    - there is fire
-    - building burning
-    - flood
-    - earthquake
-    - someone collapsed
-    - medical emergency
-    - heart attack
+    - there is a fire
+    - fire in my house
+    - my house is on fire
+    - building is burning
+    - fire accident
+    - smoke everywhere
+    - flames in building
+    - fire emergency
+    - help fire
+    - building on fire
+    - fire spreading
+    - urgent fire
+    - fire broke out
+    - kitchen fire
+    - electrical fire
+    - gas fire
+    - house burning
+    - office on fire
+    - there's smoke
+    - reporting a fire
 
 - intent: provide_location
   examples: |
-    - I am in [Berlin](location)
-    - [Mumbai](location)
-    - near [Andheri](location)
-    - [Delhi](location)
+    - I am at 123 Main Street
+    - 456 Park Avenue
+    - near City Hall
+    - downtown area
+    - [123 Main Street](location)
+    - [Downtown Mumbai](location)
+    - [Berlin Central Station](location)
+    - my address is 789 Oak Road
+    - apartment 5B building 12
+    - I'm at the mall
+    - we're in the office building
+
+- intent: provide_number_people
+  examples: |
+    - 5 people
+    - five people
+    - 3
+    - three
+    - just me
+    - 1 person
+    - around 10 people
+    - about 7
+    - 2 people
+    - many people
+    - 15 people
+
+- intent: inform_injured_yes
+  examples: |
+    - yes someone is injured
+    - yes there are injuries
+    - people are hurt
+    - someone is bleeding
+    - yes injured
+    - badly hurt
+    - someone can't breathe
+
+- intent: inform_injured_no
+  examples: |
+    - no injuries
+    - everyone is okay
+    - no one is hurt
+    - all fine physically
+    - no injuries yet
+
+- intent: inform_injured_unsure
+  examples: |
+    - not sure
+    - I don't know
+    - can't tell
+    - maybe
+    - possibly
+    - I'm not sure about injuries
+    - unclear
+
+- intent: fire_spreading_yes
+  examples: |
+    - yes it's spreading
+    - spreading fast
+    - spreading rapidly
+    - getting worse
+    - growing quickly
+    - flames spreading
+    - yes spreading
+
+- intent: fire_spreading_no
+  examples: |
+    - no not spreading
+    - contained
+    - staying in one place
+    - not getting worse
+    - stable
+
+- intent: safe_location
+  examples: |
+    - we're safe now
+    - moved to safe place
+    - outside now
+    - evacuated
+    - in safe area
+
+- intent: cannot_evacuate
+  examples: |
+    - can't get out
+    - trapped
+    - stuck
+    - door blocked
+    - can't evacuate
+    - unable to leave
 
 - intent: goodbye
   examples: |
     - bye
+<<<<<<< HEAD
     - thanks
     - goodbye
+=======
+    - goodbye
+    - see you
+    - thank you bye
+    - thanks goodbye
+>>>>>>> docker-fixed

@@ -1,3 +1,2 @@
-rasa-sdk==3.6.2
-requests
-
+rasa-sdk>=3.6.0
+requests>=2.28.0
