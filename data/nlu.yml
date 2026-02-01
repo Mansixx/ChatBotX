@@ -154,12 +154,7 @@ nlu:
 - intent: goodbye
   examples: |
     - bye
-<<<<<<< HEAD
-    - thanks
-    - goodbye
-=======
     - goodbye
     - see you
     - thank you bye
     - thanks goodbye
->>>>>>> docker-fixed
